@@ -104,9 +104,9 @@ exports.updateSubSection = async (req, res) => {
 //delete subsetion
 exports.deleteSubSection = async (req, res) => {
     try {
-        const { sectionId, subSectionId } = req.body;
+        const { subSectionId,sectionId } = req.body;
 
-        await Section.findByIdAndUpdate({ sectionId }, {
+        await Section.findByIdAndUpdate({ _id: sectionId }, {
             $pull: {
                 subSection: subSectionId,
             }

@@ -7,6 +7,7 @@ const { uploadImageToCloudinary } = require('../utils/imageUploader');
 require('dotenv').config();
 const { convertSecondsToDuration } = require("../utils/secToDuration");
 const { default: mongoose } = require('mongoose');
+const CourseProgress = require("../models/CourseProgress");
 
 
 //function to create new course
@@ -249,7 +250,7 @@ exports.getCourseDetails = async (req, res) => {
 
 exports.getFullCourseDetails = async (req, res) => {
     try {
-        const { courseId } = req.body
+        const { courseId } = req.query;
         const userId = req.user.id
         const courseDetails = await Course.findOne({
             _id: courseId,
@@ -260,8 +261,8 @@ exports.getFullCourseDetails = async (req, res) => {
                     path: "additionalDetails",
                 },
             })
-            .populate("category")
-            .populate("ratingAndReviews")
+            .populate("category")   
+            .populate("ratingAndReview")
             .populate({
                 path: "courseContent",
                 populate: {
@@ -299,7 +300,7 @@ exports.getFullCourseDetails = async (req, res) => {
             })
         })
 
-        const totalDuration = convertSecondsToDuration(totalDurationInSeconds);
+        const totalDuration = convertSecondsToDuration(totalDurationInSeconds)
 
         return res.status(200).json({
             success: true,
@@ -307,10 +308,10 @@ exports.getFullCourseDetails = async (req, res) => {
                 courseDetails,
                 totalDuration,
                 completedVideos: courseProgressCount?.completedVideos
-                    ? courseProgressCount?.completedVideos : [],
-            }
+                    ? courseProgressCount?.completedVideos
+                    : [],
+            },
         })
-
     } catch (error) {
         return res.status(500).json({
             success: false,
@@ -318,6 +319,7 @@ exports.getFullCourseDetails = async (req, res) => {
         })
     }
 }
+
 
 //Get a list of course of given instructor
 exports.getInstructorCourses = async (req, res) => {

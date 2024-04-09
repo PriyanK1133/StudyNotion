@@ -31,7 +31,7 @@ export default function RenderSteps() {
           <>
             <div
               className="flex flex-col items-center "
-              key={item.id}
+              key={item?.id}
             >
               <button
                 className={`grid cursor-default aspect-square w-[34px] place-items-center rounded-full border-[1px] ${
@@ -51,6 +51,7 @@ export default function RenderSteps() {
             {item.id !== steps.length && (
               <>
                 <div
+                  key={item.id}
                   className={`h-[calc(34px/2)] w-[33%]  border-dashed border-b-2 ${
                   step > item.id  ? "border-yellow-50" : "border-richblack-500"
                 } `}

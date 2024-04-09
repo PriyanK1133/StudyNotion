@@ -69,8 +69,7 @@ export default function CourseInformationForm() {
       currentValues.courseTags.toString() !== course.tag.toString() ||
       currentValues.courseBenefits !== course.whatYouWillLearn ||
       currentValues.courseCategory._id !== course.category._id ||
-      currentValues.courseRequirements.toString() !==
-        course.instructions.toString() ||
+      currentValues.courseRequirements !== course.instructions ||
       currentValues.courseImage !== course.thumbnail
     ) {
       return true;
@@ -111,14 +110,17 @@ export default function CourseInformationForm() {
           formData.append("category", data.courseCategory);
         }
         if (
+          currentValues.courseRequirements &&
+          course.instructions &&
           currentValues.courseRequirements.toString() !==
-          course.instructions.toString()
+            course.instructions.toString()
         ) {
           formData.append(
             "instructions",
             JSON.stringify(data.courseRequirements)
           );
         }
+
         if (currentValues.courseImage !== course.thumbnail) {
           formData.append("thumbnailImage", data.courseImage);
         }

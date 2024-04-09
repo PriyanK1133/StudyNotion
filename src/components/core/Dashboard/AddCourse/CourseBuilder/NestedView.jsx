@@ -25,19 +25,27 @@ export default function NestedView({ handleChangeEditSectionName }) {
   // to keep track of confirmation modal
   const [confirmationModal, setConfirmationModal] = useState(null);
 
-  const handleDeleleSection = async (sectionId) => {
-    const result = await deleteSection({
-      sectionId,
-      courseId: course._id,
-      token,
-    });
-    if (result) {
-      dispatch(setCourse(result));
+  const handleDeleteSection = async (sectionId) => {
+    try {
+      // Delete the section
+      await deleteSection({ sectionId, courseId: course._id, token });
+  
+      // Filter out the deleted section from the course content
+      const updatedCourseContent = course.courseContent.filter(
+        (section) => section._id !== sectionId
+      );
+  
+      // Update the course state after successful deletion
+      const updatedCourse = { ...course, courseContent: updatedCourseContent };
+      console.log("UpdatdCourse",updatedCourse)
+      dispatch(setCourse(updatedCourse));
+      setConfirmationModal(null);
+    } catch (error) {
+      console.error("Error deleting section", error);
     }
-    setConfirmationModal(null);
   };
-
   const handleDeleteSubSection = async (subSectionId, sectionId) => {
+    console.log("SEctionid",sectionId);
     const result = await deleteSubSection({ subSectionId, sectionId, token });
     if (result) {
       // update the structure of course
@@ -57,6 +65,7 @@ export default function NestedView({ handleChangeEditSectionName }) {
         id="nestedViewContainer"
       >
         {course?.courseContent?.map((section) => (
+          //section dropdown
           <details key={section?._id} open>
             {/* Section deopdown content */}
             <summary className="flex cursor-pointer items-center justify-between border-b-2 border-b-richblack-600 py-2">
@@ -84,7 +93,7 @@ export default function NestedView({ handleChangeEditSectionName }) {
                       text2: "All the lectures in this section will be deleted",
                       btn1Text: "Delete",
                       btn2Text: "Cancel",
-                      btn1Handler: () => handleDeleleSection(section._id),
+                      btn1Handler: () => handleDeleteSection(section._id),
                       btn2Handler: () => setConfirmationModal(null),
                     })
                   }
@@ -96,9 +105,88 @@ export default function NestedView({ handleChangeEditSectionName }) {
                 </span>
               </div>
             </summary>
+            <div className="px-6 pb-4">
+              {/* Render all sub sections within a section */}
+              {section.subSection.map((data) => (
+                <div
+                  key={data?.id}
+                  onClick={() => setViewSubSection(data)}
+                  className="flex cursor-pointer items-center justify-between gap-x-3 border-b-2 border-b-richblack-600 py-2"
+                >
+                  <div className="flex items-center gap-x-3 py-2">
+                    <RxDropdownMenu className="text-2xl text-richblack-50" />
+                    <p className="font-semibold text-richblack-50">
+                      {data.title}
+                    </p>
+                  </div>
+                  <div
+                    onClick={(e) => e.stopPropagation()}
+                    className="flex items-center gap-x-3"
+                  >
+                    <button
+                      onClick={() =>
+                        setEditSubSection({ ...data, section: section._id })
+                      }
+                    >
+                      <MdEdit className="text-xl text-richblack-300" />
+                    </button>
+                    <button 
+                    onClick={() =>
+                      setConfirmationModal({
+                        text1: "Delete this Sub-Section?",
+                        text2: "This lecture will be deleted",
+                        btn1Text: "Delete",
+                        btn2Text: "Cancel",
+                        btn1Handler: () =>
+                          handleDeleteSubSection(data._id, section._id),
+                        btn2Handler: () => setConfirmationModal(null),
+                      })
+                    }>
+                      <RiDeleteBin6Line className="text-xl text-richblack-300" />
+                    </button>
+                  </div>
+                </div>
+              ))}
+              {/* Add new lecture to sectioin */}
+              <button
+              onClick={() => setAddSubsection(section._id)}
+              className="mt-3 flex items-center gap-x-1 text-yellow-50"
+            >
+                <FaPlus className="text-lg" />
+                <p>Add lecture</p>
+              </button>
+            </div>
           </details>
         ))}
       </div>
+     {/* Modal Display */}
+     {addSubSection ? (
+        <SubSectionModal
+          modalData={addSubSection}
+          setModalData={setAddSubsection}
+          add={true}
+        />
+      ) : viewSubSection ? (
+        <SubSectionModal
+          modalData={viewSubSection}
+          setModalData={setViewSubSection}
+          view={true}
+        />
+      ) : editSubSection ? (
+        <SubSectionModal
+          modalData={editSubSection}
+          setModalData={setEditSubSection}
+          edit={true}
+        />
+      ) : (
+        <></>
+      )}
+      {/* Confirmation Modal */}
+      {confirmationModal ? (
+        <ConfirmationModal modalData={confirmationModal} />
+      ) : (
+        <></>
+      )}
     </>
   );
 }
