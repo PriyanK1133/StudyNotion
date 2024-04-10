@@ -23,6 +23,7 @@ import Instructor from "./components/core/Dashboard/InstructorDashboard/Instruct
 import AddCourse from "./components/core/Dashboard/AddCourse/index.jsx";
 import MyCourses from "./components/core/Dashboard/MyCourses.jsx";
 import EditCourse from "./components/core/Dashboard/EditCourse/index.jsx";
+import Catalog from "./pages/Catalog.jsx";
 
 function App() {
 
@@ -36,6 +37,7 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="catalog/:catalogName" element={<Catalog/>}/>
         <Route
           path="signup"
           element={
