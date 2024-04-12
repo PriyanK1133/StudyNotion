@@ -46,9 +46,9 @@ export const fetchCourseDetails = async (courseId) => {
   //   dispatch(setLoading(true));
   let result = null
   try {
-    const response = await apiConnector("POST", COURSE_DETAILS_API, {
-      courseId,
-    })
+    const response = await apiConnector("get", COURSE_DETAILS_API,null,null, {
+      courseId:courseId,
+    });
     console.log("COURSE_DETAILS_API API RESPONSE............", response)
 
     if (!response.data.success) {

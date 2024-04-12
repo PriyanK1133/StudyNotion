@@ -3,15 +3,14 @@ const User = require("../models/User");
 require('dotenv').config();
 //auth
 exports.auth = async (req, res, next) => {
-
     try {
-        const token = req.cookies.token || req.body.token || req.header("Authorization").replace("Bearer ", "");
+        const token = req.cookies.token || req.body.token || (req.header("Authorization") && req.header("Authorization").replace("Bearer ", ""));
 
         if (!token) {
             return res.status(401).json({
-                succuss: false,
+                success: false,
                 message: "Token missing",
-            })
+            });
         }
 
         try {
@@ -21,19 +20,21 @@ exports.auth = async (req, res, next) => {
         } catch (error) {
             return res.status(401).json({
                 success: false,
-                message: "token is invalid",
-            })
+                message: "Token is invalid",
+            });
         }
 
         next();
     } catch (error) {
         console.error(error);
-        return res.status.json({
+        return res.status(500).json({
             success: false,
             message: "Something went wrong while validating token",
-        })
+            error: error.message,
+        });
     }
-}
+};
+
 //isStudent
 exports.isStudent = async (req, res, next) => {
     try {

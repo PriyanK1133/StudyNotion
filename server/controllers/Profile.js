@@ -4,7 +4,7 @@ const User = require('../models/User');
 const CourseProgress = require("../models/CourseProgress");
 const mongoose = require("mongoose");
 const { uploadImageToCloudinary } = require('../utils/imageUploader');
-const { covertSecondsToDuration } = require('../utils/secToDuration');
+const { convertSecondsToDuration } = require('../utils/secToDuration');
 
 //method for updating profile
 exports.updateProfile = async (req, res) => {
@@ -141,6 +141,7 @@ exports.updateDisplayPicture = async (req, res) => {
 }
 
 exports.getEnrolledCourses = async (req, res) => {
+  console.log("user id", req.user.id);
     try {
       const userId = req.user.id
       let userDetails = await User.findOne({

@@ -24,6 +24,7 @@ import AddCourse from "./components/core/Dashboard/AddCourse/index.jsx";
 import MyCourses from "./components/core/Dashboard/MyCourses.jsx";
 import EditCourse from "./components/core/Dashboard/EditCourse/index.jsx";
 import Catalog from "./pages/Catalog.jsx";
+import CourseDetails from "./pages/CourseDetails.jsx";
 
 function App() {
 
@@ -38,6 +39,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="catalog/:catalogName" element={<Catalog/>}/>
+        <Route path="courses/:courseId" element={<CourseDetails/>}/>
         <Route
           path="signup"
           element={
