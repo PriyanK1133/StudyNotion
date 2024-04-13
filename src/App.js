@@ -25,6 +25,8 @@ import MyCourses from "./components/core/Dashboard/MyCourses.jsx";
 import EditCourse from "./components/core/Dashboard/EditCourse/index.jsx";
 import Catalog from "./pages/Catalog.jsx";
 import CourseDetails from "./pages/CourseDetails.jsx";
+import ViewCourse from "./pages/ViewCourse.jsx";
+import VideoDetails from "./components/core/ViewCourse/VideoDetails.jsx"
 
 function App() {
 
@@ -38,8 +40,8 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="catalog/:catalogName" element={<Catalog/>}/>
-        <Route path="courses/:courseId" element={<CourseDetails/>}/>
+        <Route path="catalog/:catalogName" element={<Catalog />} />
+        <Route path="courses/:courseId" element={<CourseDetails />} />
         <Route
           path="signup"
           element={
@@ -97,16 +99,15 @@ function App() {
           } />
 
 
-        <Route path="*" element={<Error />} />
         <Route
           element={
             <PrivateRoute>
               <Dashboard />
             </PrivateRoute>
           }>
-            <Route path="dashboard/my-profile" element={<MyProfile/>}/>
-            <Route path="dashboard/Settings" element={<Settings/>}/>
-            {
+          <Route path="dashboard/my-profile" element={<MyProfile />} />
+          <Route path="dashboard/Settings" element={<Settings />} />
+          {
             user?.accountType === ACCOUNT_TYPE.STUDENT && (
               <>
                 <Route path="dashboard/cart" element={<Cart />} />
@@ -118,15 +119,35 @@ function App() {
           {
             user?.accountType === ACCOUNT_TYPE.INSTRUCTOR && (
               <>
-                <Route path="dashboard/instructor" element={<Instructor/>}/>
-                <Route path="dashboard/add-course" element={<AddCourse/>}/>
-                <Route path="dashboard/my-courses" element={<MyCourses/>}/>
-                <Route path="dashboard/edit-course/:courseId" element={<EditCourse/>}/>
+                <Route path="dashboard/instructor" element={<Instructor />} />
+                <Route path="dashboard/add-course" element={<AddCourse />} />
+                <Route path="dashboard/my-courses" element={<MyCourses />} />
+                <Route path="dashboard/edit-course/:courseId" element={<EditCourse />} />
 
               </>
             )
           }
         </Route>
+          
+          <Route element={
+            <PrivateRoute>
+              <ViewCourse/>
+            </PrivateRoute>
+          }>
+
+            {
+              user?.accountType === ACCOUNT_TYPE.STUDENT && (
+                <>
+                <Route
+                  path="view-course/:courseId/section/:sectionId/sub-section/:subSectionId"
+                  element={<VideoDetails/>}
+                />
+                </>
+              )
+            }
+          </Route>
+
+        <Route path="*" element={<Error />} />
       </Routes>
     </div>
   );

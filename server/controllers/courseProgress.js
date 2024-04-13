@@ -7,6 +7,7 @@ const Course = require('../models/Course');
 exports.updateCourseProgress = async(req,res) =>{
     const {courseId, subSectionId} = req.body;
     const userId = req.user.id;
+    console.log("courseid and subsectin in api",courseId,subSectionId);
 
     try {
         const subSection = await SubSection.findById(subSectionId);

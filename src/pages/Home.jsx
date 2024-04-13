@@ -9,7 +9,7 @@ import ExploreMore from "../components/core/HomePage/ExploreMore";
 import TimelineSection from "../components/core/HomePage/TimelineSection";
 import LearningLanguageSection from "../components/core/HomePage/LearningLanguageSection"
 import InstructorSection from "../components/core/HomePage/InstructorSection";
-import ReviewSlider from "../components/core/HomePage/ReviewSlider";
+import ReviewSlider from "../components/common/ReviewSlider";
 import Footer from "../components/common/Footer";
 
 const Home = () => {
