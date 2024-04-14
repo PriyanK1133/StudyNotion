@@ -7,7 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import useOnClickOutside from "../../../hooks/useOnClickOutside";
 import { logout } from "../../../services/operations/authAPI";
 
-export default function ProfileDropdown() {
+export default function ProfileDropdown({ handleProfileClick }) {
   const { user } = useSelector((state) => state.profile);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -19,7 +19,13 @@ export default function ProfileDropdown() {
   if (!user) return null;
 
   return (
-    <button className="relative" onClick={() => setOpen(true)}>
+    <button
+      className="relative"
+      onClick={(e) => {
+        e.stopPropagation();
+        setOpen(true);
+      }}
+    >
       <div className="flex items-center gap-x-1">
         <img
           src={user?.image}
@@ -30,7 +36,10 @@ export default function ProfileDropdown() {
       </div>
       {open && (
         <div
-          onClick={(e) => e.stopPropagation()}
+          onClick={(e) => {
+            e.stopPropagation();
+            handleProfileClick();
+          }}
           className="absolute top-[118%] right-0 z-[1000] divide-y-[1px] divide-richblack-700 overflow-hidden rounded-md border-[1px] border-richblack-700 bg-richblack-800"
           ref={ref}
         >

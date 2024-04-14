@@ -23,16 +23,14 @@ const Catalog = () => {
       const category_id = res?.data?.data?.filter(
         (ct) => ct.name.split(" ").join("-").toLowerCase() === catalogName
       )[0]._id;
-      console.log("categoryid_first", category_id);
+
       setCategoryId(category_id);
-      console.log("categoryid_second", categoryId);
+     
     };
     getCategories();
   }, [catalogName]);
 
-  useEffect(() => {
-    console.log("categoryid_second-2.0", categoryId);
-  }, [categoryId]);
+
 
   useEffect(() => {
     const getCategoryDetails = async () => {
@@ -121,7 +119,7 @@ const Catalog = () => {
             {catalogPageData?.data?.mostSellingCourses
               ?.slice(0, 4)
               .map((courses, i) => (
-                <Course_Card course={courses} key={i} Height={"h-[400px]"} />
+                <Course_Card course={courses} key={i} Height={"h-[300px]"} />
               ))}
               {console.log("most selling course", catalogPageData?.data?.mostSellingCourses)}
           </div>

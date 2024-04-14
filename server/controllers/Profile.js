@@ -210,35 +210,39 @@ exports.getEnrolledCourses = async (req, res) => {
   }
   
 
-exports.instructorDashboard = async(req,res) =>{
+  exports.instructorDashboard = async (req, res) => {
     try {
-        const courseDetails = await Course.findOne({instructor:req.user.id});
+        const courses = await Course.find({ instructor: req.user.id });
 
-        const courseData = courseDetails.map((course)=>{
+        console.log("courses", courses);
+
+        if (!courses || courses.length === 0) {
+            return res.status(404).json({
+                message: "No courses found for this instructor",
+            });
+        }
+
+        const coursesWithStats = courses.map((course) => {
             const totalStudentsEnrolled = course.studentsEnrolled.length;
-            const totalAmountGenerated = totalStudentsEnrolled*course.price;
+            const totalAmountGenerated = totalStudentsEnrolled * course.price;
 
-            //create a new object whith additional details
-            const courseDataWithStats = {
+            // Create a new object with additional details
+            return {
                 _id: course._id,
                 courseName: course.courseName,
                 courseDescription: course.courseDescription,
-
                 totalStudentsEnrolled,
                 totalAmountGenerated,
-            }
-
-            return courseDataWithStats;
-        })
+            };
+        });
 
         res.status(200).json({
-            courses:courseData,
-        })
-        
+            courses: coursesWithStats,
+        });
     } catch (error) {
         console.error(error);
         res.status(500).json({
-            message:"Server error",
-        })
+            message: "Server error",
+        });
     }
-}
+};

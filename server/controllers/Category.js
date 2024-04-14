@@ -55,7 +55,6 @@ exports.showAllCategories = async (req, res) => {
 exports.categoryPageDetails = async (req, res) => {
     try {
         const { categoryId } = req.query;
-        console.log("PRINTING CATEGORY ID: ", categoryId);
         // Get courses for the specified category
         const selectedCategory = await Category.findById(categoryId)
             .populate({
@@ -107,12 +106,12 @@ exports.categoryPageDetails = async (req, res) => {
             })
             .exec()
 
-
-        const allCourses = allCategories.flatMap((category) => category.courses)
+        
+        const allCourses = allCategories.flatMap((category) => category.course)
+        
         const mostSellingCourses = allCourses
             .sort((a, b) => b.sold - a.sold)
             .slice(0, 10)
-        // console.log("mostSellingCourses COURSE", mostSellingCourses)
         res.status(200).json({
             success: true,
             data: {

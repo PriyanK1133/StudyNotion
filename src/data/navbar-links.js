@@ -15,4 +15,8 @@ export const NavbarLinks = [
     title: "Contact Us",
     path: "/contact",
   },
+  {
+    title: "Internships",
+    path: "/contact",
+  },
 ];
