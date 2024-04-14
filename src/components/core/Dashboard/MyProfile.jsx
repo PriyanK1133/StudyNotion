@@ -1,13 +1,13 @@
-import { RiEditBoxLine } from "react-icons/ri"
-import { useSelector } from "react-redux"
-import { useNavigate } from "react-router-dom"
+import { RiEditBoxLine } from "react-icons/ri";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
-import { formattedDate } from "../../../utils/dateFormatter"
-import IconBtn from "../../common/IconBtn"
+import { formattedDate } from "../../../utils/dateFormatter";
+import IconBtn from "../../common/IconBtn";
 
 export default function MyProfile() {
-  const { user } = useSelector((state) => state.profile)
-  const navigate = useNavigate()
+  const { user } = useSelector((state) => state.profile);
+  const navigate = useNavigate();
 
   return (
     <>
@@ -20,7 +20,7 @@ export default function MyProfile() {
             src={user?.image}
             alt={`profile-${user?.firstName}`}
             className="aspect-square w-[78px] rounded-full object-cover"
-          />  
+          />
           <div className="space-y-1">
             <p className="text-lg font-semibold text-richblack-5">
               {user?.firstName + " " + user?.lastName}
@@ -28,14 +28,17 @@ export default function MyProfile() {
             <p className="text-sm text-richblack-300">{user?.email}</p>
           </div>
         </div>
-        <IconBtn
-          text="Edit"
-          onclick={() => {
-            navigate("/dashboard/settings")
-          }}
-        >
-          <RiEditBoxLine />
-        </IconBtn>
+        <div className="lg:flex hidden">
+          {" "}
+          <IconBtn
+            text="Edit"
+            onclick={() => {
+              navigate("/dashboard/settings");
+            }}
+          >
+            <RiEditBoxLine />
+          </IconBtn>
+        </div>
       </div>
       <div className="my-10 flex flex-col gap-y-10 rounded-md border-[1px] border-richblack-700 bg-richblack-800 p-8 px-12">
         <div className="flex w-full items-center justify-between">
@@ -43,7 +46,7 @@ export default function MyProfile() {
           <IconBtn
             text="Edit"
             onclick={() => {
-              navigate("/dashboard/settings")
+              navigate("/dashboard/settings");
             }}
           >
             <RiEditBoxLine />
@@ -67,7 +70,7 @@ export default function MyProfile() {
           <IconBtn
             text="Edit"
             onclick={() => {
-              navigate("/dashboard/settings")
+              navigate("/dashboard/settings");
             }}
           >
             <RiEditBoxLine />
@@ -118,5 +121,5 @@ export default function MyProfile() {
         </div>
       </div>
     </>
-  )
+  );
 }

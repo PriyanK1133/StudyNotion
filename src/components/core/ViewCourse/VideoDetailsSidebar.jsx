@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { BsChevronDown } from "react-icons/bs";
-import { IoIosArrowBack } from "react-icons/io";
+import { IoIosArrowBack,IoIosArrowForward } from "react-icons/io";
 import { useSelector } from "react-redux";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
@@ -13,6 +13,11 @@ const VideoDetailsSidebar = ({ setReviewModal }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const { sectionId, subSectionId } = useParams();
+
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const toggleSidebar = () => {
+    setIsSidebarOpen((prev) => !prev);
+  };
 
   const {
     courseSectionData,
@@ -47,6 +52,11 @@ const VideoDetailsSidebar = ({ setReviewModal }) => {
 
   return (
     <>
+     <div
+        className={`flex h-[calc(100vh-3.5rem)] w-[320px] max-w-[350px] flex-col border-r-[1px] border-r-richblack-700 bg-richblack-800 ${
+          isSidebarOpen ? "" : "hidden" // Hide the sidebar if isSidebarOpen is false
+        }`}
+      >
       <div className="flex h-[calc(100vh-3.5rem)] w-[320px] max-w-[350px] flex-col border-r-[1px] border-r-richblack-700 bg-richblack-800">
         <div className="mx-5 flex flex-col items-start justify-between gap-2 gap-y-4 border-b border-richblack-600 py-5 text-lg font-bold text-richblack-25">
           <div className="flex w-full items-center justify-between">
@@ -131,6 +141,24 @@ const VideoDetailsSidebar = ({ setReviewModal }) => {
             </div>
           ))}
         </div>
+      </div>
+      </div>
+
+      <div
+        className="fixed top-20 right-0 z-50 bg-richblack-800"
+        style={{ right: isSidebarOpen ? "0" : "auto" }}
+      >
+        <button
+          className="flex items-center justify-center h-[35px] w-[35px] rounded-full bg-richblack-100 p-1 text-richblack-700 hover:scale-90"
+          title={isSidebarOpen ? "Collapse Sidebar" : "Expand Sidebar"}
+          onClick={toggleSidebar}
+        >
+          {isSidebarOpen ? (
+            <IoIosArrowBack size={30} />
+          ) : (
+            <IoIosArrowForward size={30} />
+          )}
+        </button>
       </div>
     </>
   );
