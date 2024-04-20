@@ -63,7 +63,7 @@ const Signupform = () => {
       confirmPassword: "",
     });
 
-    setAccountType(ACCOUNT_TYPE.STUDENT);
+    setAccountType(ACCOUNT_TYPE.INSTRUCTOR);
   };
 
   const tabData = [
