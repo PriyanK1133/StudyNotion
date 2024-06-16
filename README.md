@@ -1,5 +1,5 @@
 
-# Study Notion
+# StudyNotion
 
 Visit here:https://studynotion-lyart.vercel.app/
 
