@@ -1,31 +1,66 @@
-# React & Tailwind CSS Starter Pack
 
-This is a starter pack for creating React projects with Tailwind CSS configured. It uses React version **18.2** and Tailwind CSS version **3.2**.
+# StudyNotion
 
-## Usage
+Visit here:https://studynotion-lyart.vercel.app/
 
-This starter pack includes a basic setup for using **Tailwind CSS with React**. To start building your own components and styles, follow these steps:
+StudyNotion is a fully functional ed-tech platform. that enables users to
+create, consume, and rate educational content. The platform is built using
+the MERN stack, which includes ReactJS, NodeJS, MongoDB, and ExpressJS.
+Integrated Razorpay for secure and efficient payment processing
 
-1. Clone the repository to your local machine.
-    ```sh
-    git clone https://github.com/thepranaygupta/react-tailwind-css-starter-pack.git
-    ```
 
-1. Install the required packages.
-    ```sh
-    cd react-tailwind-css-starter-pack
-    npm install
-    ```
 
-1. Start the development server.
-    ```sh
-    npm start
-    ```
-1. Open the project in your browser at [`http://localhost:3000`](http://localhost:3000) to view your project.
-1. Create your React components and add your styles using Tailwind classes. You can also create new CSS files and import them into your components.
+## Screenshots
 
-The project is set up to use `postcss-cli` to process your CSS files. You can add your own `tailwind.config.js` file to customize your Tailwind setup.
+![App Screenshot](https://res.cloudinary.com/dzjcdhfa6/image/upload/v1718517127/Screenshot_2024-06-16_111703_nlyns9.png)
 
-## Contributing
+![App Screenshot](https://res.cloudinary.com/dzjcdhfa6/image/upload/v1718517127/Screenshot_2024-06-16_111804_dretzl.png)
 
-Contributions are welcome! If you have any suggestions or find any issues, please feel free to open an issue or a pull request.
+![App Screenshot](https://res.cloudinary.com/dzjcdhfa6/image/upload/v1718517127/Screenshot_2024-06-16_111943_pyscv2.png)
+
+![App Screenshot](https://res.cloudinary.com/dzjcdhfa6/image/upload/v1718517128/Screenshot_2024-06-16_112138_nqggwm.png)
+
+![App Screenshot](https://res.cloudinary.com/dzjcdhfa6/image/upload/v1718517129/Screenshot_2024-06-16_112002_f5f6ek.png)
+
+![App Screenshot](https://res.cloudinary.com/dzjcdhfa6/image/upload/v1718517129/Screenshot_2024-06-16_111904_m7kqiv.png)
+## Features
+
+1. **User Authentication and Authorization:**
+   - Secure sign-up and login using JWT (JSON Web Token).
+   - Role-based access control for different user types (students, instructors, admins).
+
+2. **Content Creation:**
+   - Instructors can create and manage courses with multiple modules and lessons.
+   - Rich text editor for creating detailed course content, including text, images, and videos.
+  
+
+3. **Content Consumption:**
+   - Students can browse and enroll in courses.
+   - Interactive video player with playback controls.
+   - Progress tracking for students to monitor their learning journey.
+4. **Course Rating and Reviews:**
+   - Students can rate courses and leave detailed reviews.
+   - Aggregate ratings displayed on course listings and detail pages.
+   - Instructors can respond to reviews for better engagement.
+
+5. **Secure Payment Processing:**
+   - Integrated Razorpay for seamless and secure payment transactions.
+
+6. **Dashboard and Analytics:**
+   - Personalized dashboard for students to track enrolled courses, progress, and achievements.
+   - Instructors have access to course analytics, including student engagement and feedback.
+   - Email notifications for important updates and reminders.
+
+7. **Mobile-Friendly Design:**
+   - Responsive design to ensure a seamless experience across all devices (desktops, tablets, smartphones).
+
+8. **Scalable Architecture:**
+    - Built using the MERN stack (MongoDB, ExpressJS, ReactJS, NodeJS) for scalable and efficient performance.
+    - RESTful API architecture for robust and maintainable backend services.
+
+
+## Tech Stack
+
+**Client:** React, Redux, TailwindCSS
+
+**Server:** Node, Express, Razorpay
